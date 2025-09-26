@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BioLaySumm 2026</title>
+  <meta name="description" content="BioLaySumm 2026 Shared Task: Lay Summarization of Biomedical Research Articles and Radiology Reports @ BioNLP Workshop, ACL 2026" />
+  <link rel="icon" href="/web/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#home">MedSkillQA 2026</a>
+      <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+      <nav class="site-nav" aria-label="Main">
+        <a href="#news">News</a>
+        <a href="#introduction">Introduction</a>
+        <a href="#dates">Important dates</a>
+        <a href="#tasks">Tasks</a>
+        <a href="#datasets">Datasets</a>
+        <a href="#evaluation">Evaluation</a>
+        <a href="#organizers">Organizers</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="hero">
+    <div class="container">
+    </div>
+  </main>
+
+  <section class="section content-narrow" id="news">
+    <div class="container">
+      <h3>News</h3>
+      <ul class="dates">
+        <li><strong>2025-09-26:</strong> Website updated with new design.</li>
+        <li><strong>2025-09-20:</strong> Call for participation draft prepared.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="introduction">
+    <div class="container">
+      <h3>Introduction</h3>
+      <p>Large language models (LLMs) hold significant promise for transforming healthcare by enabling rapid access to procedural guidelines, safety constraints, and educational feedback, yet their effectiveness depends on both rigorous evaluation and targeted improvement of their question answering (QA) capabilities. In medical education, suboptimal feedback can slow skill acquisition and weaken competence. Systematically evaluating and enhancing LLMs’ ability to deliver accurate, timely, and profession-specific answers is therefore critical to building reliable, high-impact AI systems for medical education. To address this need, the shared task on medical question answering targets the Clinical Skill QA scenarios.</p>
+
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="dates">
+    <div class="container">
+      <h3>Important Dates</h3>
+      <ul class="dates">
+        <li><strong>First call for participation:</strong> February 21st, 2025</li>
+        <li><strong>Releasing of task data (training, validation, and test):</strong> February 21st, 2025</li>
+        <li><strong>System submission deadline:</strong> May 16th, 2025</li>
+        <li><strong>System papers due date:</strong> May 23th, 2025</li>
+        <li><strong>Notification of acceptance:</strong> May 26th, 2025</li>
+        <li><strong>Camera-ready system papers due:</strong> May 30th, 2025</li>
+        <li><strong>BioNLP Workshop Date:</strong> July 31 - August 1, 2025</li>
+      </ul>
+      <p class="note">Note that all deadlines are 23:59:59 AoE (UTC-12).</p>
+      
+      <p><strong>Registration and Submission</strong><br />
+      <strong>CodaBench page</strong>: <a href="https://www.codabench.org/competitions/7351" target="_blank" rel="noopener noreferrer">https://www.codabench.org/competitions/7351</a></p>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="tasks">
+    <div class="container">
+      <h3>Task Definition</h3>
+      <p>Clinical Skill QA extends evaluation to a multimodal setting. Given an image of a medical student’s procedure and a question, the goal is for participants to train a model to generate the answer and rationale. The dataset is constructed from video clips of medical student clinical procedures, collected from a medical school [1]. </p>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="datasets">
+    <div class="container">
+      <h3>Datasets</h3>
+      <p>The images in the dataset showcase key clinical skills of medical students. These images are derived from video recordings by extracting key frames. The dataset comprises approximately 3000 images and over 8000 question-response pairs. Each image is paired with an associated question, a corresponding answer, and a supporting rationale. The answers consist of concise textual responses aligned with established medical terminology, whereas the rationales comprise two to five sentence explanations that highlight critical information from the image or context and substantiate adherence to procedural standards. </p>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="evaluation">
+    <div class="container">
+      <h3>Evaluation</h3>
+      <p>The evaluation consists of two parts: answer evaluation and rationale evaluation. Answer evaluation is performed using Exact Match (EM) and F1 scores. Rationale evaluation is conducted from two perspectives: relevance and clinical validity. Relevance is measured by comparing the generated rationale with the ground truth supporting rationale using the BERTScore and AlignScore[2]. Clinical validity is evaluated within the LLM-as-Judge framework. The evaluation model receives the question, the gold standard answer and rationale, as well as the output from the system being evaluated. The rubric consists of four primary dimensions (Medical Correctness, Question Relevance, Key Rationale, Safety and Compliance), each scored on a scale of 1–5 (with half points permitted) and then linearly normalized to [0,1]. The scores from these four dimensions are then weighted and summed according to a preset weight to yield a clinical validity score.</p>
+      <h4>Answer evaluation</h4>
+      <ul>
+        <li><strong>Exact Match (EM)</strong></li>
+        <li><strong>F1 scores</strong> </li>
+        
+      </ul>
+      <h4>Rationale evaluation</h4>
+      <ul>
+        <li><strong>Relevance: </strong>BERTScore, AlignScore</li>
+        <li><strong>Clinical validity: </strong>LLM-as-Judge</li>
+        
+      </ul>
+      
+      <h4>Citation</h4>
+      <p>Participants are encouraged to cite the shared task overview:</p>
+      <pre class="bibtex">@inproceedings{biolaysumm2025-overview,
+  title = {Overview of the BioLaySumm 2025 Shared Task on Lay Summarization of Biomedical Research Articles and Radiology Reports},
+  author = {Zhao, Kun and ... and Lin, Chenghua},
+  booktitle = {The 24th Workshop on Biomedical Natural Language Processing and BioNLP Shared Tasks},
+  month = aug,
+  year = {2025},
+  address = {Vienna, Austria},
+  publisher = {Association for Computational Linguistics},
+}</pre>
+      <p>And previous years’ overview papers:</p>
+      <ul>
+        <li><a href="https://biolaysumm.org/" target="_blank" rel="noopener noreferrer">BioLaySumm 2025 Overview</a></li>
+        <li><a href="https://aclanthology.org/2024.bionlp-1.10/" target="_blank" rel="noopener noreferrer">BioLaySumm 2024 Overview</a></li>
+        <li><a href="https://aclanthology.org/2023.bionlp-1.44" target="_blank" rel="noopener noreferrer">BioLaySumm 2023 Overview</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="organizers">
+    <div class="container">
+      <h3>Organizers</h3>
+      <ul class="grid two-col">
+        <li>Kun Zhao, University of Pittsburgh</li>
+        <li>Prof. Liang Zhan, University of Pittsburgh</li>
+        <li>Chenghao Xiao, University of Durham</li>
+        <li>Prof. Noura Al Moubayed, University of Durham</li>
+        <li>Kejing Yin, Hong Kong Baptist University</li>
+        <li>Sixing Yan, Hong Kong Baptist University</li>
+        <li>Zijian Lei, Hong Kong Baptist University</li>
+        <li>Prof. William CHEUNG, Hong Kong Baptist University</li>
+        <li>Dr. Qianqian Xie, Yale University</li>
+        <li>Zheheng Luo, University of Manchester</li>
+        <li>Prof. Sophia Ananiadou, University of Manchester</li>
+        <li>Tomas Goldsack, University of Sheffield</li>
+        <li>Siwei Wu, University of Manchester</li>
+        <li>Xiao Wang, University of Manchester</li>
+        <li>Prof. Chenghua Lin, University of Manchester</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="references">
+    <div class="container">
+      <h3>References</h3>
+      <ul class="refs">
+        <li>Goldsack, Scarton, Shardlow, Lin. 2024. Overview of the BioLaySumm 2024 Shared Task. <a href="https://aclanthology.org/2024.bionlp-1.10/" target="_blank" rel="noopener noreferrer">Link</a></li>
+        <li>Goldsack et al. 2023. Overview of the BioLaySumm 2023 Shared Task. <a href="https://aclanthology.org/2023.bionlp-1.44" target="_blank" rel="noopener noreferrer">Link</a></li>
+        <li>Goldsack et al. 2022. Making Science Simple. <a href="https://aclanthology.org/2022.emnlp-main.724" target="_blank" rel="noopener noreferrer">Link</a></li>
+        <li>Luo et al. 2022. Readability Controllable Biomedical Document Summarization. <a href="https://aclanthology.org/2022.findings-emnlp.343/" target="_blank" rel="noopener noreferrer">Link</a></li>
+        <li>Zhao et al. 2025. X-ray Made Simple. <a href="https://arxiv.org/abs/2406.17911" target="_blank" rel="noopener noreferrer">Link</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">© 2026 • MedSkill QA</p>
+      <a href="#home" class="back-to-top" aria-label="Back to top">Back to top</a>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+
+
