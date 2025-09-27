@@ -7,7 +7,7 @@
   --brand-2: #ffb347; /* warm accent 2 */
   --border: #e6dfd6;
   --header-h: 64px; /* approximate header height */
-  --masthead-image: url('./images/0.png'); /* replace with your image URL */
+  --masthead-image: url('./images/first.png'); /* replace with your image URL */
 }
 
 * { box-sizing: border-box; }
