@@ -7,7 +7,26 @@
   --brand-2: #ffb347; /* warm accent 2 */
   --border: #e6dfd6;
   --header-h: 64px; /* approximate header height */
-  --masthead-image: url('./images/first.webp'); /* replace with your image URL */
+  --masthead-image: url('./images/3.png'); /* replace with your image URL */
+}
+
+/* 全局图片渲染优化 */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, 
+[style*="background-image"] {
+  image-rendering: auto; /* 现代浏览器默认渲染，适合SVG */
+  image-rendering: -webkit-optimize-contrast;
+}
+
+/* 防止缩放时的布局抖动 */
+.hero {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
 }
 
 * { box-sizing: border-box; }
@@ -81,16 +100,34 @@ body {
 .hero::before {
   content: "";
   position: absolute;
-  left: 0; right: 0; bottom: 0;
-  top: calc(var(--header-h) * -1);
-  z-index: 0;
-  background-color: #fff7ea; /* unified light warm background */
+  left: 0; 
+  right: 0; 
+  top: 0; /* 从顶部开始，完全覆盖 */
+  bottom: 0; /* 到底部 */
+  z-index: 15; /* 图片浮在hero card上方 */
+  background-color: #bae2e8; /* 浅蓝绿色背景 */
   background-image: var(--masthead-image);
-  background-size: cover;
-  background-position: center;
+  background-size: cover; /* 使用cover确保完全覆盖，消除缝隙 */
+  background-position: center center; /* 居中显示图片的关键部分 */
   background-repeat: no-repeat;
+  background-attachment: scroll; /* 防止背景固定导致的缩放问题 */
+  /* SVG图片渲染优化 */
+  image-rendering: auto; /* SVG使用默认渲染 */
+  image-rendering: -webkit-optimize-contrast;
+  /* 确保图片清晰度和稳定性 */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: auto; /* 优化渲染性能 */
+  /* 防止缩放时的重绘问题 */
+  contain: layout style paint;
+  /* SVG特殊处理 */
+  background-origin: border-box;
+  background-clip: border-box;
 }
-.hero > .container { position: relative; z-index: 1; }
+.hero > .container { 
+  position: relative; 
+  z-index: 5; /* 确保容器在背景图片上方 */
+}
 .kicker {
   color: #000000;
   font-weight: 600;
@@ -125,16 +162,19 @@ h5 { font-size: 16px; margin: 16px 0 6px; color: var(--brand); }
   display: inline-block;
   padding: 28px 28px 40px 28px;
   border-radius: 16px;
-  background: transparent; /* unify color under the title */
+  background: rgba(255, 255, 255, 0.9); /* 半透明白色背景，让图片透过 */
   border: 0;
   overflow: hidden;
+  z-index: 10; /* 确保hero card在图片上方 */
+  backdrop-filter: blur(5px); /* 添加模糊效果 */
+  -webkit-backdrop-filter: blur(5px);
 }
 .hero-card::before { content: none; }
 .hero-badge {
   position: absolute;
   right: 12px;
   bottom: 10px;
-  background: #fdd893;
+  background: #fefefe;
   color: #5a3b14;
   border: 1px solid rgba(90,59,20,0.15);
   border-radius: 10px;
@@ -207,6 +247,14 @@ h5 { font-size: 16px; margin: 16px 0 6px; color: var(--brand); }
   text-decoration: none;
 }
 
+/* 响应式图片优化 - 智能策略 */
+@media (max-width: 1200px) {
+  .hero::before {
+    background-size: contain; /* 中等屏幕仍显示完整图片 */
+    background-position: center center;
+  }
+}
+
 @media (max-width: 860px) {
   .menu-toggle { display: inline-block; }
   .site-nav { display: none; position: absolute; right: 20px; top: 56px; background: transparent; padding: 10px; border: none; border-radius: 10px; }
@@ -215,6 +263,20 @@ h5 { font-size: 16px; margin: 16px 0 6px; color: var(--brand); }
   h1 { font-size: 34px; }
   .grid.two-col { grid-template-columns: 1fr; }
   .hero-cofun { width: 130px; left: 6px; bottom: 6px; }
+  /* 移动端图片优化 - 开始使用cover避免露出底色 */
+  .hero::before {
+    background-size: cover; /* 移动端使用cover避免露出底色 */
+    background-position: center center;
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero::before {
+    background-size: cover; /* 小屏幕保持完全覆盖 */
+    background-position: center center;
+    min-height: 250px;
+  }
 }
 
 html { scroll-behavior: smooth; }
