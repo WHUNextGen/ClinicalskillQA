@@ -72,31 +72,31 @@
   <section class="section content-narrow" id="tasks">
     <div class="container">
       <h3>Task Definition</h3>
-      <p>Clinical Skill QA extends evaluation to a multimodal setting. Given an image of a medical student’s procedure and a question, the goal is for participants to train a model to generate the answer and rationale. The dataset is constructed from video clips of medical student clinical procedures, collected from a medical school [1]. </p>
+      <p>ClinSkill QA formulates continuous perception for clinical skill assessment as a temporal ordering task: the MLLM is required to arrange shuffled key frames into a coherent sequence of clinical actions and to provide explanations for the resulting order.  The dataset is constructed from video clips of medical student clinical procedures, collected from a medical school [1]. </p>
     </div>
   </section>
 
   <section class="section content-narrow" id="datasets">
     <div class="container">
       <h3>Datasets</h3>
-      <p>The images in the dataset showcase key clinical skills of medical students. These images are derived from video recordings by extracting key frames. The dataset comprises approximately 3000 images and over 8000 question-response pairs. Each image is paired with an associated question, a corresponding answer, and a supporting rationale. The answers consist of concise textual responses aligned with established medical terminology, whereas the rationales comprise two to five sentence explanations that highlight critical information from the image or context and substantiate adherence to procedural standards. </p>
+      <p>ClinSkill QA is built on 200 sets of shuffled key frames extracted from three types of clinical skill videos. Each set of key frames represents a sequence of continuous actions and is accompanied by expert-annotated ground-truth ordering and order rationales. </p>
     </div>
   </section>
 
   <section class="section content-narrow" id="evaluation">
     <div class="container">
       <h3>Evaluation</h3>
-      <p>The evaluation consists of two parts: answer evaluation and rationale evaluation. Answer evaluation is performed using Exact Match (EM) and F1 scores. Rationale evaluation is conducted from two perspectives: relevance and clinical validity. Relevance is measured by comparing the generated rationale with the ground truth supporting rationale using the BERTScore and AlignScore[2]. Clinical validity is evaluated within the LLM-as-Judge framework. The evaluation model receives the question, the gold standard answer and rationale, as well as the output from the system being evaluated. The rubric consists of four primary dimensions (Medical Correctness, Question Relevance, Key Rationale, Safety and Compliance), each scored on a scale of 1–5 (with half points permitted) and then linearly normalized to [0,1]. The scores from these four dimensions are then weighted and summed according to a preset weight to yield a clinical validity score.</p>
-      <h4>Answer evaluation</h4>
+      <p>For evaluation, we use Task Accuracy (exact ordering) and Pairwise Accuracy (the fraction of adjacent pairs correctly ordered) for the ordering results, and AlignScore as well as an LLM-as-judge setup (G-Eval) for assessing the quality of the ordering explanations.</p>
+      <h4>Ordering evaluation</h4>
       <ul>
-        <li><strong>Exact Match (EM)</strong></li>
-        <li><strong>F1 scores</strong> </li>
+        <li><strong>Task Accuracy</strong></li>
+        <li><strong>Pairwise Accuracy</strong> </li>
         
       </ul>
       <h4>Rationale evaluation</h4>
       <ul>
-        <li><strong>Relevance: </strong>BERTScore, AlignScore</li>
-        <li><strong>Clinical validity: </strong>LLM-as-Judge</li>
+        <li><strong>AlignScore </strong></li>
+        <li><strong>LLM-as-Judge（G-Eval） </strong></li>
         
       </ul>
       
