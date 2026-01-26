@@ -17,12 +17,13 @@
       <a class="brand" href="#home">ClinSkillQA 2026</a>
       <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
       <nav class="site-nav" aria-label="Main">
-        <a href="#news">News</a>
+
         <a href="#introduction">Introduction</a>
         <a href="#dates">Important dates</a>
         <a href="#tasks">Tasks</a>
-        <a href="#datasets">Datasets</a>
+        <a href="#dataset">Dataset</a>
         <a href="#evaluation">Evaluation</a>
+        <a href="#registration-and-submission">Submission</a>
         <a href="#organizers">Organizers</a>
       </nav>
     </div>
@@ -37,7 +38,9 @@
     <div class="container">
       <h3>News</h3>
       <ul class="dates">
+        <li><strong>2026-01-30:</strong> Clinskill QA is released on CodaBench.</li>
         <li><strong>2025-09-26:</strong> Website updated with new design.</li>
+        <li><strong>2025-09-03:</strong> Clinskill QA is officially announced as a shared task at the BioNLP@ACL 2026.</li>
       </ul>
     </div>
   </section>
@@ -45,7 +48,7 @@
   <section class="section content-narrow" id="introduction">
     <div class="container">
       <h3>Introduction</h3>
-      <p>Multimodal large language models (MLLMs) have the potential to support clinical training and assessment by assisting medical experts in interpreting procedural videos and verifying adherence to standardized workflows. Reliable deployment in these settings requires evidence that models can continuously interpret students’ actions during clinical skill assessments, which underpins MLLMs’ understanding of clinical skills. Systematically evaluating and enhancing MLLMs' ability of continuous perception in clinical skill assessment scenarios is therefore critical to building reliable, high-impact AI systems for medical education. To address this need, the shared task on medical question answering targets the Clinical Skill QA scenarios.</p>
+      <p>Multimodal large language models (MLLMs) have the potential to support clinical training and assessment by assisting medical experts in interpreting procedural videos and verifying adherence to standardized workflows. Reliable deployment in these settings requires evidence that models can continuously interpret students’ actions during clinical skill assessments, which underpins MLLMs’ understanding of clinical skills. Systematically evaluating and improving MLLMs’ understanding of clinical skills and their continuous perception in clinical skill assessment scenarios is therefore essential for building reliable and high-impact AI systems for medical education. To address this need, the shared task on medical question answering targets the clinical skill assessment scenarios.</p>
 
     </div>
   </section>
@@ -54,17 +57,16 @@
     <div class="container">
       <h3>Important Dates</h3>
       <ul class="dates">
-        <li><strong>First call for participation:</strong> February 21st, 2026</li>
-        <li><strong>Releasing of task data (training, validation, and test):</strong> February 21st, 2026</li>
-        <li><strong>System submission deadline:</strong> May 16th, 2026</li>
-        <li><strong>System papers due date:</strong> May 23th, 2026</li>
-        <li><strong>Notification of acceptance:</strong> May 26th, 2026</li>
-        <li><strong>Camera-ready system papers due:</strong> May 30th, 2026</li>
-        <li><strong>BioNLP Workshop Date:</strong> July 31 - August 1, 2026</li>
+        <li><strong>First call for participation:</strong> Jan 30, 2026</li>
+        <li><strong>Releasing of task data :</strong> Jan 30, 2026</li>
+        <li><strong>Paper submission deadline:</strong> Apr 17, 2026</li>
+        <li><strong>Notification of acceptance:</strong> May 4, 2026</li>
+        <li><strong>Camera-ready paper due:</strong> May 12, 2026</li>
+        <li><strong>BioNLP Workshop Date:</strong> July 3 or 4, 2026</li>
       </ul>
       <p class="note">Note that all deadlines are 23:59:59 AoE (UTC-12).</p>
       
-      <p><strong>Registration and Submission</strong><br />
+
       <!--<strong>CodaBench page</strong>: <a href="https://www.codabench.org/competitions/7351" target="_blank" rel="noopener noreferrer">https://www.codabench.org/competitions/7351</a></p>-->
     </div>
   </section>
@@ -72,45 +74,61 @@
   <section class="section content-narrow" id="tasks">
     <div class="container">
       <h3>Task Definition</h3>
-      <p>ClinSkill QA formulates continuous perception for clinical skill assessment as a temporal ordering task: the MLLM is required to arrange shuffled key frames into a coherent sequence of clinical actions and to provide explanations for the resulting order.  The dataset is constructed from video clips of medical student clinical procedures, collected from a medical school [1]. </p>
+      <p>ClinSkill QA formulates clinical skill understanding and continuous perception for clinical skill assessment as an ordering task: the MLLM is required to arrange shuffled key frames into a coherent sequence of clinical actions and to provide explanations for the resulting order.  The dataset is constructed from video clips of medical student clinical procedures, collected from Zhongnan Hospital of Wuhan University and cofun [1]. </p>
     </div>
   </section>
 
-  <section class="section content-narrow" id="datasets">
+  <section class="section content-narrow" id="dataset">
     <div class="container">
-      <h3>Datasets</h3>
+      <h3>Dataset</h3>
       <p>ClinSkill QA is built on 200 sets of shuffled key frames extracted from three types of clinical skill videos. Each set of key frames represents a sequence of continuous actions and is accompanied by expert-annotated ground-truth ordering and order rationales. </p>
+      
+      <h4>Example</h4>
+      <pre><code><strong>Input frames</strong>: [A.jpg, B.jpg, C.jpg, D.jpg]
+
+<strong>Output order</strong>: ["D", "B", "A", "C"]
+
+<strong>Explanation</strong>: This example covers the transition from initial approach to pre-compression preparation and the onset of chest compressions in CPR training. The ordering is determined by the visible progression from approaching the manikin, to opening clothing for chest exposure, to starting compressions.
+
+Figure D: The operator is approaching a supine manikin. The clothing appears fully fastened and no patient contact is visible yet, which is most consistent with an early pre-compression stage. This should precede Figure B, where chest exposure has already started.
+
+Figure B: The operator uses both hands to unzip the jacket, partially opening the clothing to expose the chest area. This follows Figure D (clothing still fastened) and precedes Figure A, where the clothing is fully opened and moved aside.
+
+Figure A: The clothing is fully opened and arranged to both sides, indicating complete chest exposure immediately before compressions. This should come after Figure B (partial opening) and before Figure C (compressions underway).
+
+Figure C: The operator places one hand over the other on the manikin’s chest and is performing chest compressions. The chest is exposed and compressions have begun, so this should follow Figure A.
+</code></pre>
     </div>
   </section>
 
   <section class="section content-narrow" id="evaluation">
     <div class="container">
       <h3>Evaluation</h3>
-      <p>For evaluation, we use Task Accuracy (exact ordering) and Pairwise Accuracy (the fraction of adjacent pairs correctly ordered) for the ordering results, and AlignScore as well as an LLM-as-judge setup (G-Eval) for assessing the quality of the ordering explanations.</p>
+      <p>For evaluation, we use Task Accuracy (exact ordering) and Pairwise Accuracy (the fraction of adjacent pairs correctly ordered) for the ordering results, and BertScore as well as an LLM-as-judge(G-Eval) for assessing the quality of the ordering explanations.</p>
+      <p>For the i-th sample (a set of shuffled keyframes):</p>
       <h4>Ordering evaluation</h4>
       <ul>
         <li><strong>Task Accuracy</strong></li>
         <li><strong>Pairwise Accuracy</strong> </li>
-        
       </ul>
       <h4>Rationale evaluation</h4>
       <ul>
-        <li><strong>AlignScore </strong></li>
+        <li><strong>BertScore </strong></li>
         <li><strong>LLM-as-Judge（G-Eval） </strong></li>
         
       </ul>
-      
-      <h4>Citation</h4>
-      <p>Participants are encouraged to cite the shared task overview:</p>
-      <pre class="bibtex">@inproceedings{biolaysumm2025-overview,
-  title = {Overview of the BioLaySumm 2025 Shared Task on Lay Summarization of Biomedical Research Articles and Radiology Reports},
-  author = {Zhao, Kun and ... and Lin, Chenghua},
-  booktitle = {The 24th Workshop on Biomedical Natural Language Processing and BioNLP Shared Tasks},
-  month = aug,
-  year = {2025},
-  address = {Vienna, Austria},
-  publisher = {Association for Computational Linguistics},
-}</pre>
+    </div>
+  </section>
+
+  <section class="section content-narrow" id="registration-and-submission">
+    <div class="container">
+      <h3>Registration and Submission</h3>
+        <ul class="grid">
+        <li>Registration and Submission will be done via CodaBench (Link will be added soon).</li>
+        <li>Each team is allowed up to ten successful submissions on CodaBench.</li>
+        <li>All shared task participants are invited to submit a paper describing their systems to the Proceedings of the <a href="https://aclweb.org/aclwiki/BioNLP_Workshop" target="_blank" rel="noopener noreferrer">BioNLP 2026</a> at <a href="https://2026.aclweb.org/" target="_blank" rel="noopener noreferrer">ACL 2026</a>.</li>
+        <li>Paper must follow the submission instructions of the <a href="https://aclweb.org/aclwiki/BioNLP_Workshop" target="_blank" rel="noopener noreferrer">BioNLP 2026</a> workshop.</li>
+      </ul>
     </div>
   </section>
 
@@ -131,6 +149,24 @@
       </ul>
     </div>
   </section>
+
+  <!--
+  <section class="section content-narrow" id="citation">
+    <div class="container">
+      <h3>Citation</h3>
+      <p>Participants are encouraged to cite the shared task overview:</p>
+      <pre class="bibtex">@inproceedings{biolaysumm2025-overview,
+  title = {Overview of the BioLaySumm 2025 Shared Task on Lay Summarization of Biomedical Research Articles and Radiology Reports},
+  author = {Zhao, Kun and ... and Lin, Chenghua},
+  booktitle = {The 24th Workshop on Biomedical Natural Language Processing and BioNLP Shared Tasks},
+  month = aug,
+  year = {2025},
+  address = {Vienna, Austria},
+  publisher = {Association for Computational Linguistics},
+}</pre>
+    </div>
+  </section>
+  -->
 
   <section class="section content-narrow" id="references">
     <div class="container">

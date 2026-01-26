@@ -105,10 +105,10 @@ body {
   top: 0; /* 从顶部开始，完全覆盖 */
   bottom: 0; /* 到底部 */
   z-index: 15; /* 图片浮在hero card上方 */
-  background-color: #bae2e8; /* 浅蓝绿色背景 */
+  background-color: var(--bg); /* 与页面背景一致，避免明显色块 */
   background-image: var(--masthead-image);
-  background-size: cover; /* 使用cover确保完全覆盖，消除缝隙 */
-  background-position: center center; /* 居中显示图片的关键部分 */
+  background-size: contain; /* 不裁剪，整张图片完整显示 */
+  background-position: center center; /* 居中显示整张图片 */
   background-repeat: no-repeat;
   background-attachment: scroll; /* 防止背景固定导致的缩放问题 */
   /* SVG图片渲染优化 */
@@ -229,6 +229,17 @@ h5 { font-size: 16px; margin: 16px 0 6px; color: var(--brand); }
   overflow: auto;
 }
 
+/* Code / pre blocks: allow wrapping to avoid horizontal overflow */
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: #fffefb;
+  border: 1px solid var(--border);
+}
+
 .site-footer {
   border-top: none;
   padding: 24px 0 60px;
@@ -247,10 +258,9 @@ h5 { font-size: 16px; margin: 16px 0 6px; color: var(--brand); }
   text-decoration: none;
 }
 
-/* 响应式图片优化 - 智能策略 */
+/* 响应式图片优化 - 始终自适应铺满（cover） */
 @media (max-width: 1200px) {
   .hero::before {
-    background-size: contain; /* 中等屏幕仍显示完整图片 */
     background-position: center center;
   }
 }
@@ -263,20 +273,9 @@ h5 { font-size: 16px; margin: 16px 0 6px; color: var(--brand); }
   h1 { font-size: 34px; }
   .grid.two-col { grid-template-columns: 1fr; }
   .hero-cofun { width: 130px; left: 6px; bottom: 6px; }
-  /* 移动端图片优化 - 开始使用cover避免露出底色 */
-  .hero::before {
-    background-size: cover; /* 移动端使用cover避免露出底色 */
-    background-position: center center;
-    min-height: 300px;
-  }
 }
 
 @media (max-width: 480px) {
-  .hero::before {
-    background-size: cover; /* 小屏幕保持完全覆盖 */
-    background-position: center center;
-    min-height: 250px;
-  }
 }
 
 html { scroll-behavior: smooth; }
